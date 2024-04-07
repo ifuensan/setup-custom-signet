@@ -1,6 +1,6 @@
 # setup-my-signet
 
-From ChainCode
+##From Chain Code Labs, [Signet Wallet Project](https://github.com/chaincodelabs/signet-wallet-project)##
 
 The included script signet-setup.py needs to be run by the administrator on a publicly reachable server to start the game.
 
