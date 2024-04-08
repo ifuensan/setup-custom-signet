@@ -1,4 +1,4 @@
-# SEtup My Own Signet (SEMOS)
+# Setup My Own Signet
 
 ### From Chain Code Labs, [Signet Wallet Project](https://github.com/chaincodelabs/signet-wallet-project) ###
 
