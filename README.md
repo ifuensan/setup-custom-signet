@@ -17,7 +17,7 @@ Usage: `python signet-setup.py <path/to/bitcoin> <path/to/student/files> <path/f
 The script runs the signet full node, creates all the wallets and continues mining blocks forever. It should never be killed, but the node can always be restarted by using `-datadir=<path/for/bitcoin/datadir>`
 
 
-`python3 signet-setup.py ~/bitcoin/ ~/signet_files/students/ ~/signet_files/datadir/'
+`python3 signet-setup.py ~/bitcoin/ ~/signet_files/students/ ~/signet_files/datadir/`
 
 ## Setup Multiple RPC Users in Bictoin Core ##
 
