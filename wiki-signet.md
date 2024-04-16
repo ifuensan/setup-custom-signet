@@ -94,6 +94,23 @@ Una vez que se haya confirmado, deberías verlo en getbalance.
 ```
 $ ./bitcoin-cli -datadir=signet getbalance
 ```
+
+## Links Externos ##
+[BIP 0325](https://en.bitcoin.it/wiki/BIP_0325)
+
+### Grifos ###
+* https://signetfaucet.com/
+* ~https://alt.signetfaucet.com (the same here)~
+Faucet source code, if you want your own:
+* https://github.com/stepansnigirev/tinyfaucet.git (python)
+* https://github.com/jsarenik/bitcoin-faucet-shell (POSIX shell)
+
+### Exploradores de bloques ###
+* https://explorer.bc-2.jp/
+* https://mempool.space/signet
+* ~https://ex.signet.bublina.eu.org~
+
+
 ----
 Traducción de https://en.bitcoin.it/wiki/Signet por @ifuensan
 
