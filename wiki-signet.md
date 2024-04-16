@@ -101,6 +101,7 @@ $ ./bitcoin-cli -datadir=signet getbalance
 ### Grifos ###
 * https://signetfaucet.com/
 * ~https://alt.signetfaucet.com (the same here)~
+
 Faucet source code, if you want your own:
 * https://github.com/stepansnigirev/tinyfaucet.git (python)
 * https://github.com/jsarenik/bitcoin-faucet-shell (POSIX shell)
