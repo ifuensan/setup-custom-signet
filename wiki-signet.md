@@ -32,8 +32,68 @@ Todas las redes Signet comparten el mismo bloque génesis, pero tienen un encabe
 ## Empezando ##
 NOTA: signet (VI) se fusionó con la rama maestra de Bitcoin Core a partir de [BIP-325: Signet [consensus] #18267](https://github.com/bitcoin/bitcoin/pull/18267)
 
+### Obtener y compilar signet ###
+```
+$ git clone https://github.com/bitcoin/bitcoin
+$ cd bitcoin
+$ ./autogen.sh
+$ ./configure
+$ make -j5
+```
 
+### Cree el archivo bitcoin.conf e inicie el demonio ###
+```
+$ cd src
+$ mkdir signet
+$ echo "signet=1
+daemon=1" > signet/bitcoin.conf
+$ ./bitcoind -datadir=signet
+```
 
+### Verifica que estás conectado ###
+```
+$ ./bitcoin-cli -datadir=signet getconnectioncount
+***SHOULD BE MORE THAN ZERO***
+$ ./bitcoin-cli -datadir=signet getblockcount
+***SHOULD BE MORE THAN ZERO***
+```
+
+### Consigue algunas monedas ###
+Existe una herramienta de línea de comandos que puede utilizar para enviar monedas directamente a su instancia de Signet, suponiendo que se encuentre en la red predeterminada. También puedes usar el faucet en línea con una dirección tuya.
+
+#### Usando faucet en línea ####
+Primero necesitas una dirección
+```
+$ ./bitcoin-cli -datadir=signet getnewaddress
+```
+Luego ve a un grifo (faucet), p. https://signet.bc-2.jp e introduce tú dirección.
+
+#### Usando la herramienta de línea de comando ####
+La herramienta está en `contrib/signet` y se llama `getcoins.sh`. Opcionalmente, puede proporcionar una ruta a bitcoin-cli usando `--cmd=[ruta]` y un grifo compatible usando `--faucet=[url]` seguido de cualquier número de argumentos para `bitcoin-cli`. El script intenta detectarlos automáticamente si se omiten.
+```
+$ cd ../contrib/signet
+$ ./getcoins.sh -datadir=../../src/signet
+Payment of 10.00000000 BTC sent with txid c0bfa...
+```
+
+#### Comprueba que recibiste las monedas ####
+Verifique la transacción de su faucet confirmando, por ej. https://explorer.bc-2.jp y luego envíe monedas a personas y/o use signet para probar su billetera, etc.
+
+Puede ver inmediatamente la cantidad usando `getunconfirmedbalance`, es decir.
+```
+$ cd ../../src # if you were in contrib/signet
+$ ./bitcoin-cli -datadir=signet getunconfirmedbalance
+```
+
+También puedes ver información sobre la transacción que te dio el faucet.
+```
+$ ./bitcoin-cli -datadir=signet gettransaction THETXID
+```
+
+Una vez que se haya confirmado, deberías verlo en getbalance.
+```
+$ ./bitcoin-cli -datadir=signet getbalance
+```
 ----
 Traducción de https://en.bitcoin.it/wiki/Signet por @ifuensan
 
