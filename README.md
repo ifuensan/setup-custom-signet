@@ -1,20 +1,24 @@
-# Setup Custom Signet
+# Configurar una Signet Personalizada
 
-### From Chain Code Labs, [Signet Wallet Project](https://github.com/chaincodelabs/signet-wallet-project) ###
+Me he basado en todo lo visto en el ejercicio [Signet Wallet Project](https://github.com/chaincodelabs/signet-wallet-project) de  ChainCode Labs.
 
-The included script signet-setup.py needs to be run by the administrator on a publicly reachable server to start the game.
+## Guía de uso de ChainCode Traducida ##
 
-The script requires a local installation of Bitcoin Core since it consumes the test framework as a library.
+El administrador debe ejecutar el Script signet-setup.py incluido en un servidor públicamente accesible para iniciar el juego.
 
-Usage: `python signet-setup.py <path/to/bitcoin> <path/to/student/files> <path/for/bitcoin/datadir>`
+El script requiere una instalación local de Bitcoin Core, ya que consume el framework de tests como una biblioteca.
 
-`<path/to/bitcoin>`: (required) Path to local installation of Bitcoin Core repository
+Utilice: `python signet-setup.py <path/to/bitcoin> <path/to/student/files> <path/for/bitcoin/datadir>`
 
-`<path/to/student/files>`: (optional, default ./config) Destination for student bitcoin.conf and wallet descriptors
+`<path/to/bitcoin>`: (requerido) Ruta hacia la instalación local del repositorio de Bitcoin Core.
 
-`<path/for/bitcoin/datadir>`: (optional, default is `os.tmpdir()`) Data directory for the signet full node
+`<path/to/student/files>`: (opcional, por defecto ./config) Destino para el bitcoin.conf del estudiante y descriptores de billeteras.
 
-The script runs the signet full node, creates all the wallets and continues mining blocks forever. It should never be killed, but the node can always be restarted by using `-datadir=<path/for/bitcoin/datadir>`
+`<path/for/bitcoin/datadir>`: (opcional, por defecto es `os.tmpdir()`) Directorio de datos para el nodo completo de Signet.
 
+El script ejecuta el nodo completo de Signet, crea todas las billeteras y continúa minando bloques para siempre. Nunca debe ser matado el proceso, pero el nodo siempre se puede reiniciar usando `-datadir=<path/for/bitcoin/datadir>`
+
+
+## Ampliaciones ##
 
 `python3 signet-setup.py ~/bitcoin/ ~/signet_files/students/ ~/signet_files/datadir/`
