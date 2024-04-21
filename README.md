@@ -1,4 +1,4 @@
-# Setup My Own Signet
+# Setup Custom Signet
 
 ### From Chain Code Labs, [Signet Wallet Project](https://github.com/chaincodelabs/signet-wallet-project) ###
 
