@@ -22,3 +22,18 @@ El script ejecuta el nodo completo de Signet, crea todas las billeteras y contin
 ## Ampliaciones ##
 
 `python3 signet-setup.py ~/bitcoin/ ~/signet_files/students/ ~/signet_files/datadir/`
+
+/Work/bitcoin/src/bitcoind \
+    -datadir=/home/ifuensan/signet_files/datadir/node0 \
+    -logtimemicros \
+    -debug \
+    -debugexclude=libevent \
+    -debugexclude=leveldb \
+    -debugexclude=rand \
+    -uacomment=testnode0 \
+    -logthreadnames \
+    -logsourcelocations \
+    -loglevel=trace \
+    -v2transport=0 -signetchallenge=0014f21b6165d87eb5a9355ef1561590a4691e2501b9 \
+    -bind=0.0.0.0 \
+    -txindex
