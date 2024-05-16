@@ -23,6 +23,12 @@ El script ejecuta el nodo completo de Signet, crea todas las billeteras y contin
 
 `python3 signet-setup.py ~/bitcoin/ ~/signet_files/students/ ~/signet_files/datadir/`
 
+# Lanzar el script  
+```bash
+python3 signet-setup.py /Work/bitcoin/ /home/ifuensan/signet_files/students/ /home/ifuensan/signet_files/datadir/
+```
+
+```bash
 /Work/bitcoin/src/bitcoind \
     -datadir=/home/ifuensan/signet_files/datadir/node0 \
     -logtimemicros \
@@ -37,3 +43,8 @@ El script ejecuta el nodo completo de Signet, crea todas las billeteras y contin
     -v2transport=0 -signetchallenge=0014f21b6165d87eb5a9355ef1561590a4691e2501b9 \
     -bind=0.0.0.0 \
     -txindex
+```
+
+```bash
+/usr/bin/python3 /Work/bitcoin/contrib/signet/miner --cli=/Work/bitcoin/src/bitcoin-cli -datadir=/home/ifuensan/signet_files/datadir/node0 -rpcwallet=miner generate --address=tb1q7gdkzewc0666jd2779tpty9ydy0z2qdeydnf08 --grind-cmd=/Work/bitcoin/src/bitcoin-util grind --min-nbits --ongoing
+```
