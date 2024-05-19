@@ -2,7 +2,9 @@
 
 Crear su propia signet implica un par de pasos: generar las claves utilizadas para firmar, definir el script de bloque, iniciar un nodo que se ejecute en la nueva signet e importar la clave privada para firmar bloques.
 
-## Generar claves utilizadas para firmar un bloque ##
+
+## Generar claves utilizadas para firmar un bloque
+
 La forma más sencilla es simplemente iniciar un nodo de prueba de regtest y para luego generar una nueva clave desde allí.
 
 ```
@@ -87,6 +89,6 @@ Lo siguiente es hacer que sus amigos/colegas/etc. se unan a la red configurando 
 ## Script de ejemplo ##
 Puede encontrar un script de ejemplo completo en https://en.bitcoin.it/wiki/Signet:Custom:Script
 
-
+https://github.com/bitcoin/bitcoin/pull/19937
 
 
