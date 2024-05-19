@@ -22,14 +22,16 @@ $ btsig getaddressinfo $ADDR | grep pubkey
 ```
 Necesitamos anotar la clave privada (`echo $PRIVKEY`) y la clave pública (aquí `THE_REAL_PUBKEY`).
 
+```
 ➜  src git:(d287a8c) ✗ btsig getaddressinfo $ADDR | grep pubkey
   "pubkey": "028c9959fecef8e837c5a8bf55ea1801436d514a4109ef581b581ad811b327a23f",
 ➜  src git:(d287a8c) ✗ echo $PRIVKEY
 cQLdPSz8bMNncSdoWWwhDzBmninpJ6zmJf8NiEK2gU1RfGWy4a4f
+```
 
 
+## Definiendo el script de bloque 
 
-## Definiendo el script de bloque ##
 El script de bloque es como cualquier script antiguo de Bitcoin, pero el tipo más común es un multifirma k-of-n. 
 Aquí haremos una multisig 1-de-1 con nuestra única clave pública anterior. Nuestro script se convierte
 
