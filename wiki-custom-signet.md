@@ -7,9 +7,14 @@ La forma más sencilla es simplemente iniciar un nodo de prueba de regtest y par
 
 ```
 $ cd PATHTOBITCOIN/bitcoin/src
-$ ./bitcoind -regtest -daemon -wallet="test"
-$ ADDR=$(./bitcoin-cli -regtest getnewaddress)
-$ PRIVKEY=$(./bitcoin-cli -regtest dumpprivkey $ADDR)
+
+$ ./bitcoind -datadir=/home/ifuensan/signet_files/datadir2/ -regtest -daemon
+./bitcoind -datadir=/home/ifuensan/signet_files/datadir2/ -regtest -daemon -deprecatedrpc=create_bdb
+
+$ alias btsig = "./bitcoin-cli -datadir=/home/ifuensan/signet_files/datadir2/ -regtest"
+$ btsig -named createwallet wallet_name=wallet_test descriptors=false
+$ ADDR=$(btsig getnewaddress)
+$ PRIVKEY=$(./btsig dumpprivkey $ADDR)
 $ ./bitcoin-cli -regtest getaddressinfo $ADDR | grep pubkey
   "pubkey": "THE_REAL_PUBKEY",
 ```
@@ -55,6 +60,7 @@ Podemos usar el comando `calibrate` para que nos dé los nbits para un tiempo pr
 ```
 $ ../contrib/signet/miner --cli="./bitcoin-cli" calibrate --grind-cmd="./bitcoin-util grind" --seconds=600
 ```
+
 
 Haciendo referencia a nuestro valor de nbits con la variable $NBITS, debemos especificar --set-block-time al extraer el primer bloque en un nuevo sello:
 ```

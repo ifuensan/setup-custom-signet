@@ -47,7 +47,8 @@ AuthServiceProxy.oldrequest = AuthServiceProxy._request
 AuthServiceProxy._request = auth_proxy_request
 
 EXTERNAL_IP = get('https://api.ipify.org').content.decode('utf8')
-NUM_WALLETS = 100
+NUM_WALLETS = 10 
+NUM_WAITING_BLOCKS = 150
 
 
 # Parse listdescriptors
@@ -59,7 +60,7 @@ def get_wpkh(wallet_rpc):
     return None
 
 # Setup regtest test shell, create wallet and signet challenge
-shell = TestShell().setup(num_nodes=1, setup_clean_chain=True)
+shell = TestShell().setup(num_nodes=1, setup_clean_chain=True) #, extra_args=[[f"-rpcuser=mempool", f"-rpcpassword=mempool"]])
 node = shell.nodes[0]
 node.createwallet(wallet_name="signer")
 descs = node.listdescriptors(private=True)["descriptors"]
@@ -81,11 +82,13 @@ shell = TestShell().setup(
     num_nodes=1,
     setup_clean_chain=True,
     chain="regtest" if REGTEST else "signet",
-    extra_args=[[f"-signetchallenge={signet_challenge}", f"-bind=0.0.0.0", f"-txindex"]],
+    extra_args=[[f"-signetchallenge={signet_challenge}", f"-rpcuser=mempool", f"-rpcpassword=mempool", f"-bind=0.0.0.0", f"-txindex"]],
+    #extra_args=[[f"-signetchallenge={signet_challenge}", f"-bind=0.0.0.0", f"-txindex"]],
     tmpdir=DATA_DIR,
     rpc_timeout=600)
 # Keep eveything for restarts
 shell.options.nocleanup = True
+shell.log.info(f"Signet started...")
 
 # Create mining node
 node = shell.nodes[0]
@@ -93,11 +96,17 @@ node.createwallet(wallet_name="miner")
 miner_wallet = node.get_wallet_rpc("miner")
 miner_wallet.importdescriptors(descs)
 miner_addr = miner_wallet.getnewaddress(address_type="bech32")
+shell.log.info(f"Created miner node...")
 
 # Add challenge to conf file for future restarts
 conf_file = node.datadir_path / "bitcoin.conf"
 with open(conf_file, "a") as f:
+    f.write("txindex=1\n")
+   #f.write("rpcuser=mempool\n")
+    #f.write("rpcpassword=mempool\n")    
     f.write(f"signetchallenge={signet_challenge}\n")
+
+shell.log.info(f"Created file {conf_file}")
 
 # Create wallets, cache p2wpkh descriptors and RPC wrappers
 wallets = []
@@ -110,12 +119,16 @@ for i in range(NUM_WALLETS):
     shell.log.info(f"Created wallet: {name} {desc}")
     sleep(0.5)
 
+shell.log.info(f"Created bitcoin.conf for students in {CONF_DIR}")
+#exit()
+
 # Export config data
 with open(f"{CONF_DIR / 'bitcoin.conf'}", "w") as f:
     f.write("signet=1\n")
     f.write("[signet]\n")
     f.write(f"signetchallenge={signet_challenge}\n")
     f.write(f"addnode={EXTERNAL_IP}:{p2p_port(node.index)}\n")
+
 
 with open(f"{CONF_DIR / 'wallets.txt'}", "w") as f:
     for wallet in wallets:
@@ -145,12 +158,13 @@ else:
         f"--grind-cmd={grinder} grind",
         "--min-nbits",
         "--ongoing"]
+        #"--seconds=50"]
     subprocess.Popen(cmd, stderr=subprocess.STDOUT)
 
 # Start a thread where the miner funds wallets whenever it can
 def maybe_fund_wallets():
     while True:
-        if node.getblockcount() >= 300:
+        if node.getblockcount() >= NUM_WAITING_BLOCKS: #300:
             return
         # Wait for mature coins
         try:
@@ -183,7 +197,7 @@ Thread(target=maybe_fund_wallets).start()
 def tx_blizzard():
     while True:
         try:
-            if node.getblockcount() >= 290:
+            if node.getblockcount() >= NUM_WAITING_BLOCKS-10: #290:
                 return
             for wallet in wallets:
                 bal = wallet["rpc"].getbalance()

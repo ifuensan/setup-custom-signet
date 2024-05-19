@@ -27,7 +27,10 @@ El script ejecuta el nodo completo de Signet, crea todas las billeteras y contin
 ```bash
 python3 signet-setup.py /Work/bitcoin/ /home/ifuensan/signet_files/students/ /home/ifuensan/signet_files/datadir/
 ```
+### Parar el nodo
+/Work/bitcoin/src/bitcoin-cli -datadir=/home/ifuensan/signet_files/datadir/node0 stop
 
+### Arrancar el nodo
 ```bash
 /Work/bitcoin/src/bitcoind \
     -datadir=/home/ifuensan/signet_files/datadir/node0 \
@@ -40,11 +43,40 @@ python3 signet-setup.py /Work/bitcoin/ /home/ifuensan/signet_files/students/ /ho
     -logthreadnames \
     -logsourcelocations \
     -loglevel=trace \
-    -v2transport=0 -signetchallenge=0014f21b6165d87eb5a9355ef1561590a4691e2501b9 \
+    -v2transport=0 \
     -bind=0.0.0.0 \
     -txindex
-```
 
+    -signetchallenge=0013f21b6165d87eb5a9355ef1561590a4691e2501b9 \
+
+```
+### Arrancar el miner
 ```bash
 /usr/bin/python3 /Work/bitcoin/contrib/signet/miner --cli=/Work/bitcoin/src/bitcoin-cli -datadir=/home/ifuensan/signet_files/datadir/node0 -rpcwallet=miner generate --address=tb1q7gdkzewc0666jd2779tpty9ydy0z2qdeydnf08 --grind-cmd=/Work/bitcoin/src/bitcoin-util grind --min-nbits --ongoing
 ```
+signet=1
+[signet]
+port=13383
+rpcport=18383
+rpcservertimeout=99000
+rpcdoccheck=1
+fallbackfee=0.0002
+server=1
+txindex=1
+rpcuser=mempool
+rpcpassword=mempool
+keypool=1
+discover=0
+dnsseed=0
+fixedseeds=0
+listenonion=0
+peertimeout=999999999
+printtoconsole=0
+upnp=0
+natpmp=0
+shrinkdebugfile=0
+deprecatedrpc=create_bdb
+unsafesqlitesync=1
+connect=0
+bind=127.0.0.1
+signetchallenge=0014f21b6165d87eb5a9355ef1561590a4691e2501b9
