@@ -14,11 +14,18 @@ $ ./bitcoind -datadir=/home/ifuensan/signet_files/datadir2/ -regtest -daemon
 $ alias btsig = "./bitcoin-cli -datadir=/home/ifuensan/signet_files/datadir2/ -regtest"
 $ btsig -named createwallet wallet_name=wallet_test descriptors=false
 $ ADDR=$(btsig getnewaddress)
-$ PRIVKEY=$(./btsig dumpprivkey $ADDR)
-$ ./bitcoin-cli -regtest getaddressinfo $ADDR | grep pubkey
+$ PRIVKEY=$(btsig dumpprivkey $ADDR)
+$ btsig getaddressinfo $ADDR | grep pubkey
   "pubkey": "THE_REAL_PUBKEY",
 ```
 Necesitamos anotar la clave privada (`echo $PRIVKEY`) y la clave pública (aquí `THE_REAL_PUBKEY`).
+
+➜  src git:(d287a8c) ✗ btsig getaddressinfo $ADDR | grep pubkey
+  "pubkey": "028c9959fecef8e837c5a8bf55ea1801436d514a4109ef581b581ad811b327a23f",
+➜  src git:(d287a8c) ✗ echo $PRIVKEY
+cQLdPSz8bMNncSdoWWwhDzBmninpJ6zmJf8NiEK2gU1RfGWy4a4f
+
+
 
 ## Definiendo el script de bloque ##
 El script de bloque es como cualquier script antiguo de Bitcoin, pero el tipo más común es un multifirma k-of-n. 
@@ -31,6 +38,8 @@ Aquí haremos una multisig 1-de-1 con nuestra única clave pública anterior. Nu
 * `ae` `OP_CHECKMULTISIG` opcode
 
 Juntos, nuestro valor de `-signetchallenge` se convierte en `5121...51ae`. Donde `...` representa `THE_REAL_PUBKEY` (ver arriba).
+
+5121028c9959fecef8e837c5a8bf55ea1801436d514a4109ef581b581ad811b327a23f51ae
 
 ## Iniciar un nodo (emisor) ##
 Para que la red sea útil, debe generar bloques a intervalos decentes, así que iniciemos un nodo que haga eso (puede ser útil usar ese nodo también como nodo semilla para otros pares).
@@ -60,7 +69,8 @@ Podemos usar el comando `calibrate` para que nos dé los nbits para un tiempo pr
 ```
 $ ../contrib/signet/miner --cli="./bitcoin-cli" calibrate --grind-cmd="./bitcoin-util grind" --seconds=600
 ```
-
+➜  src git:(d287a8c) ✗ ../contrib/signet/miner --cli="./bitcoin-cli" calibrate --grind-cmd="./bitcoin-util grind" --seconds=50
+nbits=1d3b96b6 for 50s average mining time
 
 Haciendo referencia a nuestro valor de nbits con la variable $NBITS, debemos especificar --set-block-time al extraer el primer bloque en un nuevo sello:
 ```
