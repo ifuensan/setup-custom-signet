@@ -71,7 +71,7 @@ Juntos, nuestro valor de `-signetchallenge` se convierte en `5121...51ae`. Donde
 
 5121028c9959fecef8e837c5a8bf55ea1801436d514a4109ef581b581ad811b327a23f51ae
 
-## Iniciar un nodo (emisor) ##
+## Iniciar un nodo (emisor)
 Para que la red sea útil, debe generar bloques a intervalos decentes, así que iniciemos un nodo que haga eso (puede ser útil usar ese nodo también como nodo semilla para otros pares).
 
 Tenga en cuenta que estamos importando `$PRIVKEY` al final; cualquier nodo que necesite emitir bloques debe importar la clave privada que generamos anteriormente, o no podrá firmar bloques.
@@ -90,7 +90,7 @@ $ ./bitcoin-cli -datadir=$datadir importprivkey $PRIVKEY
 
 Nota: si se encuentra con los errores anteriores, es posible que tenga un sello diferente ejecutándose, lo que está bloqueando los puertos. Detenga esto o configure el puerto y rpcport en el archivo `$datadir/bitcoin.conf` en la sección `[signet]` e intente nuevamente desde la parte `bitcoind` anterior.
 
-## Ejecutar el emisor ##
+## Ejecutar el emisor
 Por último, vamos a poner en funcionamiento un emisor para extraer bloques.
 
 Necesitaremos proporcionar un valor para nbits que sea el objetivo de minería y que sea inversamente proporcional a la dificultad. Esto nos permitirá establecer el tiempo promedio entre bloques minados.
@@ -114,7 +114,7 @@ $ ../contrib/signet/miner --cli="./bitcoin-cli -datadir=$datadir" generate --add
 ```
 Lo siguiente es hacer que sus amigos/colegas/etc. se unan a la red configurando el desafío signet igual que el anterior y conectándose a su nodo.
 
-## Script de ejemplo ##
+## Script de ejemplo
 Puede encontrar un script de ejemplo completo en https://en.bitcoin.it/wiki/Signet:Custom:Script
 
 https://github.com/bitcoin/bitcoin/pull/19937
