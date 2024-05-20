@@ -4,6 +4,9 @@ Una red signet personalizada en Bitcoin es una red de prueba privada que se util
 
 Las redes signet son similares a la red principal de Bitcoin, pero están separadas y no están conectadas a ella. Esto permite a los desarrolladores probar nuevos cambios sin afectar la red principal y sin riesgo de perder fondos.
 
+https://mempool.space/signet
+https://explorer.bc-2.jp/
+
 **Las redes signet personalizadas se pueden crear con diferentes parámetros que mainnet, lo que permite a los desarrolladores probar cómo funcionarían los cambios en diferentes escenarios.** Por ejemplo, una red signet personalizada podría tener un límite de bloque más pequeño o una tasa de emisión de bitcoins diferente.
 
 **Las redes signet personalizadas son una herramienta valiosa para el desarrollo de Bitcoin y se utilizan para probar una amplia gama de nuevas funciones, que incluyen:**
