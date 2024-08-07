@@ -54,6 +54,8 @@ python3 signet-setup.py /Work/bitcoin/ /home/ifuensan/signet_files/students/ /ho
 ```bash
 /usr/bin/python3 /Work/bitcoin/contrib/signet/miner --cli=/Work/bitcoin/src/bitcoin-cli -datadir=/home/ifuensan/signet_files/datadir/node0 -rpcwallet=miner generate --address=tb1q7gdkzewc0666jd2779tpty9ydy0z2qdeydnf08 --grind-cmd=/Work/bitcoin/src/bitcoin-util grind --min-nbits --ongoing
 ```
+Un ejemplo de configuración:
+```
 signet=1
 [signet]
 port=13383
@@ -80,3 +82,4 @@ unsafesqlitesync=1
 connect=0
 bind=127.0.0.1
 signetchallenge=0014f21b6165d87eb5a9355ef1561590a4691e2501b9
+```
